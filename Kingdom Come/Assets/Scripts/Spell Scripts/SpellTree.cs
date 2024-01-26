@@ -7,10 +7,12 @@ public class SpellTree : MonoBehaviour
     public GameObject Player;
     public GameObject ButtonSp1;
     public GameObject ButtonSp2;
+    public string Sidentifier;
 
     public void SpellOne()
     {
         ButtonSp2.SetActive(true);
+        Sidentifier = "fireball";
     }
 
     public void SpellTwo()
