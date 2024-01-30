@@ -8,11 +8,11 @@ public class ExpHandling : MonoBehaviour
     public GameObject Player;
     public GameObject SpellHandeler;
 
-    void Update()
-    {
-        //other code which gets the exp
-        //distrubution
+    public void TransferData(string Spellname, float Exp)
+    { 
+        MovingExp = Exp;
         Player.GetComponent<PlayerExp>().HeldExp += MovingExp;
 
+        SpellHandeler.GetComponent<SpellDictionary>().UpdateExp(Spellname, Exp);
     }
 }

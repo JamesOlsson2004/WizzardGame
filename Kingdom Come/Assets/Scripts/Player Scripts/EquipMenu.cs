@@ -12,11 +12,16 @@ public class EquipMenu : MonoBehaviour
     int SlotValue;
     public Sprite UiReset;
     public GameObject ImageFollow;
+    public List<Sprite> images = new List<Sprite>();
     public List<string> Slots = new List<string>();
     GameObject[] AllSpells;
 
     void Start()
     {
+        for (int i = 0; i != 8; i++)
+        {
+            images.Add(null);
+        }
         for (int i = 0; i != 8; i++)
         {
             Slots.Add("");
@@ -75,16 +80,33 @@ public class EquipMenu : MonoBehaviour
             GameObject SpellButton = GameObject.Find(EventSystem.current.currentSelectedGameObject.name);
             Image EquipImage = SpellButton.GetComponent<UnityEngine.UI.Image>();
             EquipImage.sprite = SpellImage.GetComponent<Image>().sprite;
+
             SlotValue = int.Parse(EventSystem.current.currentSelectedGameObject.name) - 1;
-            Slots[SlotValue] = ButtonName;
+            images[SlotValue] = SpellImage.GetComponent<Image>().sprite;
+            GameObject[] Hotbars = GameObject.FindGameObjectsWithTag("Hot Bar");
+
+            List<string> TotalSpells = new List<string>(Dictionary.GetComponent<SpellDictionary>().SpellNames);
+            for (int i = 0; i != TotalSpells.Count; i++)
+            {
+                if (ButtonName == TotalSpells[i])
+                {
+                    Slots[SlotValue] = TotalSpells[i];
+                }
+            }
+
+            foreach (GameObject x in Hotbars) { x.GetComponent<SpellSlots>().UpdateSlots(); }
         }
         if (ButtonName == null)
         {
             GameObject SpellButton = GameObject.Find(EventSystem.current.currentSelectedGameObject.name);
             Image EquipImage = SpellButton.GetComponent<UnityEngine.UI.Image>();
             EquipImage.sprite = UiReset;
+
             SlotValue = int.Parse(EventSystem.current.currentSelectedGameObject.name);
+            images[SlotValue] = null;
+            GameObject[] Hotbars = GameObject.FindGameObjectsWithTag("Hot Bar");
             Slots[SlotValue] = "";
+            foreach (GameObject x in Hotbars) { x.GetComponent<SpellSlots>().UpdateSlots(); }
         }
         ButtonName = null;
     }
@@ -110,4 +132,6 @@ public class EquipMenu : MonoBehaviour
         else
         { ImageFollow.SetActive(false); }
     }
+    
 }
+

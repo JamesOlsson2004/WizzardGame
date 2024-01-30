@@ -83,6 +83,15 @@ public class PlayerMovement : MonoBehaviour
         else
         { UniversalTimer++; }
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            GameObject[] SpellSlots = GameObject.FindGameObjectsWithTag("Hot Bar");
+            foreach (GameObject x in SpellSlots)
+            {
+                x.GetComponent<SpellSlots>().ChangeActive();
+            }
+        }
+
         if (Physics.CheckSphere(GroundCheck.position, groundDistance, GroundMask))
         {
             groundDistance = 0.4f;

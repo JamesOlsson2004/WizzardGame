@@ -10,6 +10,7 @@ public class ToggleMenu : MonoBehaviour
     public GameObject EquipmentMenu;
     public GameObject Equipment;
     public GameObject Menu;
+    public GameObject GUI;
     public bool InMenu = false;
     public Camera MainCamera;
 
@@ -21,6 +22,7 @@ public class ToggleMenu : MonoBehaviour
         {
             CloseMenus();
             MainCamera.enabled = true;
+            GUI.SetActive(true);
             MenuCamera.enabled = false;
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -71,6 +73,7 @@ public class ToggleMenu : MonoBehaviour
         {
             MenuCamera.enabled = true;
             MainCamera.enabled = false;
+            GUI.SetActive(false);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
